@@ -31,6 +31,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
+                        @if (Route::has('admin.projects.index'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.projects.index') }}">{{ __('index') }}</a>
+                        </li>
+                    @endif
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

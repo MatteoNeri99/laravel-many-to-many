@@ -34,7 +34,7 @@
 
             <div class="mb-3">
 
-                <select class="form-select" aria-label="Defaul select example" name="type_id" id="type_id">
+                <select class="form-select mb-3" aria-label="Defaul select example" name="type_id" id="type_id">
                     @foreach ($types as $type)
 
                         <option value="{{$type->id }}"
@@ -48,6 +48,17 @@
                     @endforeach
 
                 </select>
+
+                <div>Tecnologie:
+
+                    @foreach ($technologies as $technology )
+
+                        <input name="technologies[]" type="checkbox" class="btn-check " id="technology-chek-{{$technology->id}}" autocomplete="off" value="{{ $technology->id }}">
+                        <label class="btn btn-outline-primary " for="technology-chek-{{$technology->id}}">{{ $technology->name }}</label>
+
+                    @endforeach
+
+                </div>
 
 
             </div>

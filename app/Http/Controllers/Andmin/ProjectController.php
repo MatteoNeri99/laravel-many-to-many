@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Andmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -24,8 +25,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types=Type::all();
+        $technologies=Technology::all();
         $project=new Project();
-        return view ('admin\project\create', compact('project', 'types'));
+        return view ('admin\project\create', compact('project', 'types','technologies'));
     }
 
     /**
@@ -38,7 +40,8 @@ class ProjectController extends Controller
             'type_id'=> 'required|integer|exists:types,id',
             'date'  =>  'required|date',
             'description'  => 'required|max:255|min:4',
-            'image'  => 'nullable'
+            'image'  => 'nullable',
+            'technologies'=> 'array|exists:technologies,id'
             ]);
 
         $newProject= new Project();
@@ -47,6 +50,7 @@ class ProjectController extends Controller
         $newProject->description= $data['description'];
         $newProject->image = $data['image'];
         $newProject->save();
+        $newProject->technologies()->sync($data['technologies']);
 
 
         return redirect()->route('admin.projects.show' , $newProject);
@@ -68,7 +72,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types=Type::all();
-        return view ('admin.project.edit', compact('project','types'));
+        $technologies=Technology::all();
+        return view ('admin.project.edit', compact('project','types','technologies'));
     }
 
     /**
@@ -82,9 +87,11 @@ class ProjectController extends Controller
             'date'  =>  'required|date',
             'description'  => 'required|max:255|min:4',
             'image'  => 'nullable',
+            'technologies'=> 'array|exists:technologies,id'
             ]);
 
         $project->update($data);
+        $project->technologies()->sync($data['technologies']);
 
         return redirect()->route('admin.projects.update' , $project);
     }

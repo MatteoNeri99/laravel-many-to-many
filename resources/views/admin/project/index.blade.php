@@ -25,7 +25,7 @@
 
                     @forelse ($project->technologies as $tecnology)
 
-                        {{$tecnology->name}}
+                        <span class="badge rounded-pill text-bg-primary ">{{$tecnology->name}}</span>
 
                     @empty
 

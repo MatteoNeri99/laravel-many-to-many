@@ -18,6 +18,18 @@
 
         @endif
 
+        <p>
+            @forelse ($project->technologies as $tecnology)
+
+                <span class="badge rounded-pill text-bg-primary ">{{$tecnology->name}}</span>
+
+            @empty
+
+                no technologies
+
+            @endforelse
+        </p>
+
         <p>descrizione: {{$project->description}} </p>
         <p> date: {{$project->date}} </p>
         <img class="img-fluid" src="{{$project->image}}" alt="{{$project->title}}">

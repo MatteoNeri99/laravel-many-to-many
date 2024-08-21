@@ -9,6 +9,7 @@
             <tr>
             <th scope="col">Id</th>
             <th scope="col">titolo</th>
+            <th scope="col">tecnologie</th>
             <th scope="col">tipo</th>
             <th scope="col">date</th>
             <th scope="col">Azioni</th>
@@ -19,6 +20,20 @@
             <tbody>
                 <td>{{$project->id}}</td>
                 <td>{{$project->title}}</td>
+
+                <td>
+
+                    @forelse ($project->technologies as $tecnology)
+
+                        {{$tecnology->name}}
+
+                    @empty
+
+                        no technologies
+
+                    @endforelse
+                </td>
+
                 @if ($project->type)
 
                   <td>{{$project->type->name}}</td>

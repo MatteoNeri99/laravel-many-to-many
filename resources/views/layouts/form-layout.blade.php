@@ -53,7 +53,19 @@
 
                     @foreach ($technologies as $technology )
 
-                        <input name="technologies[]" type="checkbox" class="btn-check " id="technology-chek-{{$technology->id}}" autocomplete="off" value="{{ $technology->id }}">
+                        @if($errors->any())
+
+                            <input name="technologies[]" type="checkbox" class="btn-check " id="technology-chek-{{$technology->id}}" autocomplete="off" value="{{ $technology->id }}"
+                            {{in_array($technology->id, old('technologies', [])) ? 'checked' : '' }} >
+
+                        @else
+
+                            <input name="technologies[]" type="checkbox" class="btn-check " id="technology-chek-{{$technology->id}}" autocomplete="off" value="{{ $technology->id }}"
+                            {{ $project->technologies->contains($technology) ? 'checked' : '' }} >
+
+                        @enderror
+
+
                         <label class="btn btn-outline-primary " for="technology-chek-{{$technology->id}}">{{ $technology->name }}</label>
 
                     @endforeach
